@@ -1,6 +1,13 @@
 class EpisodesController < ApplicationController
   before_action :set_episode, only: [:show, :edit, :update, :destroy]
 
+  rescue_from ActiveRecord::RecordNotFound do 
+    @q = Episode.ransack(params[:id], search_key: :id)
+    @episodes = @q.result(distinct: true)
+
+    render "searches/show"
+  end 
+
   # GET /episodes
   # GET /episodes.json
   def index
