@@ -2,10 +2,11 @@ class EpisodesController < ApplicationController
   before_action :set_episode, only: [:show, :edit, :update, :destroy]
 
   rescue_from ActiveRecord::RecordNotFound do 
-    @q = Episode.ransack(params[:id], search_key: :id)
+    #params[:q[:name_cont]] = params[:id]
+    @q = Episode.ransack(name_cont: params[:id])
     @episodes = @q.result(distinct: true)
 
-    render "searches/show"
+    render "/searches/show"
   end 
 
   # GET /episodes

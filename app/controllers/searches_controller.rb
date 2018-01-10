@@ -1,6 +1,6 @@
 class SearchesController < ApplicationController 
   def show
-    @q = Episode.ransack(params[:q])
+    @q = Episode.ransack(name_cont: params[:id])
     @episodes = @q.result(distinct: true)
 
     respond_to do |format| 
